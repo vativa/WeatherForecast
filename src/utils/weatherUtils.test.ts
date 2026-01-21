@@ -17,6 +17,15 @@ describe('weatherUtils', () => {
       expect(result).toContain('Jan');
       expect(result).toContain('15');
     });
+
+    it('treats YYYY-MM-DD as a local date to avoid UTC shifts', () => {
+      const expected = new Date(2024, 0, 15).toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric',
+      });
+      expect(formatDate('2024-01-15')).toBe(expected);
+    });
   });
 
   describe('getDayName', () => {

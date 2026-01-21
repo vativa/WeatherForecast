@@ -72,7 +72,7 @@ export const formatTemp = (temp: number): string => {
  * Format date to readable string
  */
 export const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
+  const date = parseLocalDate(dateString);
   const options: Intl.DateTimeFormatOptions = { 
     weekday: 'long', 
     month: 'short', 
@@ -85,12 +85,28 @@ export const formatDate = (dateString: string): string => {
  * Format time from datetime string
  */
 export const formatTime = (dateTimeString: string): string => {
-  const date = new Date(dateTimeString);
+  const date = parseLocalDateTime(dateTimeString);
   return date.toLocaleTimeString('en-US', { 
     hour: '2-digit', 
     minute: '2-digit',
     hour12: true 
   });
+};
+
+const parseLocalDate = (dateString: string): Date => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString);
+  if (match) {
+    const [, year, month, day] = match;
+    return new Date(Number(year), Number(month) - 1, Number(day));
+  }
+  return new Date(dateString);
+};
+
+const parseLocalDateTime = (dateTimeString: string): Date => {
+  if (dateTimeString.includes(' ') && !dateTimeString.includes('T')) {
+    return new Date(dateTimeString.replace(' ', 'T'));
+  }
+  return new Date(dateTimeString);
 };
 
 /**
