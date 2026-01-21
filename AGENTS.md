@@ -13,7 +13,7 @@
 - React hooks and functional components
 - No new dependencies without approval
 
-## Git / Github practices
+## Git / GitHub practices
 - Always create new branch per task/feature
 - Before opening a PR, ensure latest origin/main is merged into current feature branch
 - Open a pull request with a clear summary of changes and the goal being solved
