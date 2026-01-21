@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Form, Button, InputGroup, Alert } from 'react-bootstrap';
+import { Form, Button, InputGroup, Alert, Toast, ToastContainer } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchWeatherByCity, fetchWeatherByCoordinates, clearError } from '../redux/weatherSlice';
 
 export const SearchBar = () => {
   const [city, setCity] = useState('');
   const [geoLoading, setGeoLoading] = useState(false);
+  const [geoError, setGeoError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector((state) => state.weather);
 
@@ -18,11 +19,12 @@ export const SearchBar = () => {
 
   const handleGeolocation = () => {
     if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser');
+      setGeoError('Geolocation is not supported by your browser');
       return;
     }
 
     setGeoLoading(true);
+    setGeoError(null);
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
@@ -31,7 +33,7 @@ export const SearchBar = () => {
       },
       (error) => {
         setGeoLoading(false);
-        alert(`Error getting location: ${error.message}`);
+        setGeoError(`Error getting location: ${error.message}`);
       }
     );
   };
@@ -43,6 +45,14 @@ export const SearchBar = () => {
           {error}
         </Alert>
       )}
+      <ToastContainer position="top-end" className="p-3">
+        <Toast show={!!geoError} onClose={() => setGeoError(null)} delay={5000} autohide bg="danger">
+          <Toast.Header>
+            <strong className="me-auto">Location Error</strong>
+          </Toast.Header>
+          <Toast.Body className="text-white">{geoError}</Toast.Body>
+        </Toast>
+      </ToastContainer>
       <Form onSubmit={handleSearch}>
         <InputGroup className="mb-3">
           <Form.Control
