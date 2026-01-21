@@ -4,13 +4,13 @@ A modern React TypeScript application that displays a 5-day weather forecast usi
 
 ## Features
 
-- 🌍 **Geolocation Support**: Automatically fetch weather data based on your current location
-- 🔍 **City Search**: Search for weather forecasts by city name
-- 📅 **5-Day Forecast**: View weather predictions for the next 5 days
-- ⏰ **Hourly Details**: Click on any day to see hourly weather details
-- 📱 **Responsive Design**: Works seamlessly on desktop and mobile devices
-- ⚡ **Fast & Modern**: Built with Vite for lightning-fast development and builds
-- 🧪 **Tested**: Includes unit tests for critical functionality
+- **Geolocation Support**: Automatically fetch weather data based on your current location
+- **City Search**: Search for weather forecasts by city name
+- **5-Day Forecast**: View weather predictions for the next 5 days
+- **Hourly Details**: Click on any day to see hourly weather details
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Fast & Modern**: Built with Vite for lightning-fast development and builds
+- 🧪**Tested**: Includes unit tests for critical functionality
 
 ## Tech Stack
 
