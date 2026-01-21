@@ -1,7 +1,13 @@
-# Common files/folders
+# Editor directories and files
+.idea
+.vscode/*
+!.vscode/extensions.json
 .DS_Store
-.idea/
-.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Logs
 logs
@@ -16,14 +22,3 @@ node_modules
 dist
 dist-ssr
 *.local
-
-# Editor directories and files
-.idea
-.vscode/*
-!.vscode/extensions.json
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
