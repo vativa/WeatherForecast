@@ -1,4 +1,4 @@
-import type { DailyForecast, ForecastItem, ForecastResponse } from '../types/weather';
+import type { DailyForecast, ForecastItem, ForecastResponse, WeatherCondition } from '../types/weather';
 
 /**
  * Group forecast items by day and create daily summaries
@@ -23,7 +23,7 @@ export const groupForecastByDay = (forecast: ForecastResponse): DailyForecast[] 
     const temp_max = Math.max(...temps);
 
     // Get the most common weather condition for the day
-    const weatherCounts = new Map<string, { count: number; weather: any }>();
+    const weatherCounts = new Map<string, { count: number; weather: WeatherCondition }>();
     items.forEach((item) => {
       const mainWeather = item.weather[0].main;
       if (!weatherCounts.has(mainWeather)) {
