@@ -1,6 +1,6 @@
 # Editor directories and files
 .env
-.idea
+.idea/
 .vscode/*
 !.vscode/extensions.json
 .DS_Store
