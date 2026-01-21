@@ -22,8 +22,7 @@ export const weatherService = {
     );
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to fetch weather data');
+      throw new Error(await getErrorMessage(response));
     }
 
     return response.json();
@@ -42,8 +41,7 @@ export const weatherService = {
     );
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to fetch weather data');
+      throw new Error(await getErrorMessage(response));
     }
 
     return response.json();
@@ -55,4 +53,18 @@ export const weatherService = {
   getWeatherIconUrl: (icon: string): string => {
     return `https://openweathermap.org/img/wn/${icon}@2x.png`;
   },
+};
+
+export const getErrorMessage = async (response: Response): Promise<string> => {
+  const fallback = 'Failed to fetch weather data';
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    return fallback;
+  }
+  try {
+    const errorData = (await response.json()) as { message?: string };
+    return errorData.message || fallback;
+  } catch {
+    return fallback;
+  }
 };
