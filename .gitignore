@@ -1,3 +1,8 @@
+# Common files/folders
+.DS_Store
+.idea/
+.vscode/
+
 # Logs
 logs
 *.log
