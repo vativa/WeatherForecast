@@ -163,11 +163,11 @@ npm run build
 ```
 
 ## Contributing
-1. Fork the repository
+1. Fork the repository (local `main` is read-only, `origin/main` is protected)
 2. Create a feature branch (`git checkout -b feature/branch-name`)
 3. Commit your changes (`git commit -m 'Add new feature'`)
 4. Push to the branch (`git push origin feature/branch-name`)
-5. Open a Pull Request
+5. Open a Pull Request against `main`
 
 ## Acknowledgments
 - Weather data provided by [OpenWeatherMap](https://openweathermap.org/)
