@@ -3,6 +3,7 @@
 .idea/
 .vscode/*
 !.vscode/extensions.json
+*.code-workspace
 .DS_Store
 *.suo
 *.ntvs*
