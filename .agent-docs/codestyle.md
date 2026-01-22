@@ -12,6 +12,6 @@
 
 # Setup Commands (add custom params to justify next explicit calls)
 - Install deps: `npm install`
-- Start dev server: `npm dev`
+- Start dev server: `npm run dev`
 - Run tests: `npm test`
 
