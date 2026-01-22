@@ -9,10 +9,6 @@ approval_policy = "on-request"
 name = "WeatherForecast"
 env = "development"
 
-[api]
-base_url = "https://api.example.com"
-# api_key = ""
-
 [logging]
 level = "info"
 
