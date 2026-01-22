@@ -10,8 +10,11 @@
         - `git switch main && git reset --hard origin/main` (or `git pull --ff-only` if clean/fast-forwardable)
         - `git switch -c feature/<short-name>`
     - All commits must go to the feature branch
+    - Commit messages in history are short, imperative, and capitalized (e.g., “Update .gitignore”)
 
-- **PR rule (mandatory):**
+- **Pullrequest & rules (mandatory):**
+    - PRs should include a clear summary, testing steps (`npm run test`/`npm run lint`),
+      and screenshots for UI changes
     - Push only the feature branch: `git push -u origin feature/<short-name>`
     - Open a PR against `main`
     - Ensure CI checks pass and resolve review comments
@@ -29,4 +32,3 @@
     - Never commit on `main`
     - Never keep work on `main`
     - `main` is only used to track `origin/main` (fast-forward/reset to match remote) and as the base for new feature branches
-
