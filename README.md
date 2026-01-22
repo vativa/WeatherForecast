@@ -1,6 +1,53 @@
 # Weather Forecast App
 
-A modern React TypeScript application that displays a 5-day weather forecast using the OpenWeatherMap API. Built with Redux Toolkit for state management and React Bootstrap for UI components.
+A modern React TypeScript application that displays a 5-day weather forecast using the OpenWeatherMap API.
+Built with Redux Toolkit for state management and React Bootstrap for UI components.
+
+## Setup
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- OpenWeatherMap API key (free tier available)
+
+### Installation Steps
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/vativa/WeatherForecast.git
+   cd WeatherForecast
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Get an API Key**
+   - Visit [OpenWeatherMap](https://openweathermap.org/api)
+   - Sign up for a free account
+   - Generate an API key
+4. **API Configuration**
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env` and add your API key:
+   ```
+   VITE_OPENWEATHER_API_KEY=your_openweathermap_apikey
+   ```
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+6. **Open your browser**
+   Navigate to `http://localhost:5173`
+
+## Available Scripts
+
+- `npm run dev` - Start the Vite development server at `http://localhost:5173`
+- `npm run test` - Run unit tests with Vitest
+- `npm run lint` - Run ESLint across the repo
+- `npm run build` - Build for production in `dist/`
+- `npm run preview` - Preview production build
+- `npm run test:ui` - Run tests with Vitest UI
+- `npm run test:coverage` - Generate coverage report
 
 ## Features
 
@@ -21,59 +68,6 @@ A modern React TypeScript application that displays a 5-day weather forecast usi
 - **Vite** - Build tool
 - **Vitest** - Testing framework
 - **OpenWeatherMap API** - Weather data provider
-
-## Prerequisites
-
-- Node.js (v18 or higher)
-- npm or yarn
-- OpenWeatherMap API key (free tier available)
-
-## Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/vativa/WeatherForecast.git
-   cd WeatherForecast
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Get an API Key**
-   - Visit [OpenWeatherMap](https://openweathermap.org/api)
-   - Sign up for a free account
-   - Generate an API key
-
-4. **Configure environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-   
-   Edit `.env` and add your API key:
-   ```
-   VITE_OPENWEATHER_API_KEY=your_actual_api_key_here
-   ```
-
-5. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-6. **Open your browser**
-   
-   Navigate to `http://localhost:5173`
-
-## Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run test` - Run unit tests
-- `npm run test:ui` - Run tests with UI
-- `npm run test:coverage` - Run tests with coverage report
 
 ## Usage
 
@@ -135,29 +129,34 @@ This app uses the [OpenWeatherMap 5-day forecast API](http://openweathermap.org/
 ## Testing
 
 The project includes unit tests for:
-- Weather utility functions
+- All React components
 - Redux state management
-- React components
-
-Run tests with:
-```bash
-npm run test
-```
+- Utility functions
+- Testing frameworks: Vitest + Testing Library + JSDOM
+- Test files use `.test.ts` or `.test.tsx` adjacent to source (examples in `src/components/` and `src/utils/`)
+- Prefer testing public behavior (rendered UI, user events, slice reducers) over internal implementation details
+### Running test suite:
+   ```bash
+   npm run test
+   ```
+### Running tests in watch mode:
+   ```bash
+   npm run test:ui
+   ```
 
 ## Building for Production
 
+The built files will be in the `dist/` directory and can be deployed to any static hosting service:
 ```bash
 npm run build
 ```
 
-The built files will be in the `dist/` directory and can be deployed to any static hosting service.
-
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/branch-name`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin feature/branch-name`)
 5. Open a Pull Request
 
 ## License
@@ -168,42 +167,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Weather data provided by [OpenWeatherMap](https://openweathermap.org/)
 - Icons and UI components from [React Bootstrap](https://react-bootstrap.github.io/)
-
-## Project Structure & Module Organization
-- `src/` contains all application code
-- `src/components/` holds React UI components (e.g., `DayCard.tsx`, `SearchBar.tsx`)
-- `src/redux/` contains the Redux store, hooks, and slices
-- `src/services/` wraps OpenWeatherMap API calls
-- `src/utils/` holds pure helpers such as `weatherUtils.ts`
-- `src/types/` stores TypeScript types
-- `src/test/` includes Vitest setup; test files live alongside source (e.g., `src/utils/weatherUtils.test.ts`)
-- `public/` is for static assets; Vite entry is `index.html`
-
-## Build, Test, and Development Commands
-- `npm run dev`: start the Vite dev server at `http://localhost:5173`
-- `npm run build`: type-check with `tsc -b` and create a production build in `dist/`
-- `npm run preview`: serve the production build locally
-- `npm run lint`: run ESLint across the repo
-- `npm run test`: run unit tests with Vitest
-- `npm run test:ui`: open Vitest UI
-- `npm run test:coverage`: generate coverage report
-
-## Coding Style & Naming Conventions
-- TypeScript + React with functional components
-- Indentation: 2 spaces; keep JSX props vertically aligned when multi-line
-- Filenames: PascalCase for components (`ForecastList.tsx`), camelCase for non-components (`weatherUtils.ts`)
-- Linting: ESLint via `eslint.config.js`; fix lint before committing
-
-## Testing Guidelines
-- Frameworks: Vitest + Testing Library + JSDOM
-- Test files use `.test.ts` or `.test.tsx` adjacent to source (examples in `src/components/` and `src/utils/`)
-- Prefer testing public behavior (rendered UI, user events, slice reducers) over internal implementation details
-
-## Commit & Pull Request Guidelines
-- Commit messages in history are short, imperative, and capitalized (e.g., “Update .gitignore”)
-- PRs should include a clear summary, testing steps (`npm run test`/`npm run lint`), and screenshots for UI changes
-- Link related issues when applicable
-
-## Configuration & Secrets
-- Copy `.env.example` to `.env` and set `VITE_OPENWEATHER_API_KEY`
-- Do not commit real API keys or local `.env` changes
