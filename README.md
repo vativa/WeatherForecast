@@ -169,3 +169,51 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Weather data provided by [OpenWeatherMap](https://openweathermap.org/)
 - Icons and UI components from [React Bootstrap](https://react-bootstrap.github.io/)
 
+## Sequence Diagram
+
+```mermaid
+sequenceDiagram
+  autonumber
+  actor User
+  participant SearchBar
+  participant ReduxThunk as "Redux Thunks"
+  participant WeatherService
+  participant OpenWeather as "OpenWeather API"
+  participant WeatherUtils
+  participant Store as "Redux Store"
+  participant ForecastList
+  participant DayCard
+  participant HourlyModal as "HourlyDetailsModal"
+
+  User->>SearchBar: Submit city or click "My Location"
+
+  alt City search
+    SearchBar->>ReduxThunk: dispatch(fetchWeatherByCity(city))
+  else Geolocation
+    SearchBar->>SearchBar: navigator.geolocation.getCurrentPosition()
+    SearchBar->>ReduxThunk: dispatch(fetchWeatherByCoordinates(lat, lon))
+  end
+
+  ReduxThunk->>WeatherService: getForecastByCity / getForecastByCoordinates
+  WeatherService->>OpenWeather: GET /forecast?...
+  OpenWeather-->>WeatherService: ForecastResponse or error
+  WeatherService-->>ReduxThunk: ForecastResponse or throw
+
+  alt Success
+    ReduxThunk->>WeatherUtils: groupForecastByDay(forecast)
+    WeatherUtils-->>ReduxThunk: DailyForecast[]
+    ReduxThunk->>Store: set forecast + dailyForecasts + currentLocation
+    Store-->>ForecastList: state update
+    ForecastList->>DayCard: render 5-day cards
+  else Error
+    ReduxThunk->>Store: set error
+    Store-->>SearchBar: error shown in Alert/Toast
+  end
+
+  User->>DayCard: Click a day
+  DayCard->>Store: dispatch(setSelectedDay)
+  Store-->>HourlyModal: selectedDay set
+  HourlyModal-->>User: Render hourly table
+  User->>HourlyModal: Close modal
+  HourlyModal->>Store: dispatch(setSelectedDay(null))
+```
