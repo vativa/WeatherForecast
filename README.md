@@ -1,6 +1,6 @@
 # Weather Forecast App
 
-A modern React TypeScript application that displays a 5-day weather forecast using the OpenWeatherMap API.
+A modern React TypeScript application displaying a 5-day weather forecast using the OpenWeatherMap API.
 Built with Redux Toolkit for state management and React Bootstrap for UI components.
 
 ## Setup
@@ -24,6 +24,7 @@ Built with Redux Toolkit for state management and React Bootstrap for UI compone
    - Visit [OpenWeatherMap](https://openweathermap.org/api)
    - Sign up for a free account
    - Generate an API key
+<br/><br/>
 4. **API Configuration**
    ```bash
    cp .env.example .env
@@ -86,29 +87,41 @@ Built with Redux Toolkit for state management and React Bootstrap for UI compone
 2. A modal will open showing hourly weather details
 3. Click outside the modal or the close button to dismiss
 
-## Project Structure
-
+## React Project Structure
 ```
 src/
-├── components/          # React components
-│   ├── DayCard.tsx     # Individual day forecast card
-│   ├── ForecastList.tsx # List of daily forecasts
-│   ├── HourlyDetailsModal.tsx # Modal for hourly details
-│   ├── LoadingSpinner.tsx # Loading indicator
-│   └── SearchBar.tsx   # Search and geolocation controls
-├── redux/              # Redux store and slices
-│   ├── hooks.ts        # Typed Redux hooks
-│   ├── store.ts        # Store configuration
-│   └── weatherSlice.ts # Weather state slice
-├── services/           # API services
-│   └── weatherService.ts # OpenWeatherMap API calls
-├── types/              # TypeScript type definitions
-│   └── weather.ts      # Weather-related types
-├── utils/              # Utility functions
-│   └── weatherUtils.ts # Weather data processing
+├── assets/             # Static assets
+│   └── react.svg       # Vite React logo
+├── components/         # React UI components + tests
+│   ├── DayCard.tsx
+│   ├── DayCard.test.tsx
+│   ├── ForecastList.tsx
+│   ├── ForecastList.test.tsx
+│   ├── HourlyDetailsModal.tsx
+│   ├── HourlyDetailsModal.test.tsx
+│   ├── LoadingSpinner.tsx
+│   ├── LoadingSpinner.test.tsx
+│   ├── SearchBar.tsx
+│   └── SearchBar.test.tsx
+├── redux/              # Redux store, slices, and tests
+│   ├── hooks.ts
+│   ├── store.ts
+│   ├── weatherSlice.ts
+│   └── weatherSlice.test.ts
+├── services/           # API services + tests
+│   ├── weatherService.ts
+│   └── weatherService.test.ts
 ├── test/               # Test configuration
-│   └── setup.ts        # Test setup file
+│   └── setup.ts
+├── types/              # TypeScript type definitions
+│   └── weather.ts
+├── utils/              # Utility helpers + tests
+│   ├── weatherUtils.ts
+│   └── weatherUtils.test.ts
+├── App.css             # App-level styles
+├── App.test.tsx        # App component test
 ├── App.tsx             # Main app component
+├── index.css           # Global styles
 └── main.tsx            # App entry point
 ```
 
@@ -127,7 +140,6 @@ This app uses the [OpenWeatherMap 5-day forecast API](http://openweathermap.org/
 - 1,000,000 calls/month
 
 ## Testing
-
 The project includes unit tests for:
 - All React components
 - Redux state management
@@ -145,25 +157,21 @@ The project includes unit tests for:
    ```
 
 ## Building for Production
-
 The built files will be in the `dist/` directory and can be deployed to any static hosting service:
 ```bash
 npm run build
 ```
 
 ## Contributing
-
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/branch-name`)
 3. Commit your changes (`git commit -m 'Add new feature'`)
 4. Push to the branch (`git push origin feature/branch-name`)
 5. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
-
 - Weather data provided by [OpenWeatherMap](https://openweathermap.org/)
 - Icons and UI components from [React Bootstrap](https://react-bootstrap.github.io/)
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
