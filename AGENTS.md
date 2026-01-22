@@ -1,85 +1,10 @@
-# Codex Agent Instructions
+# Codex Agent Instructions LONG term (agent-readonly)
+./.agent-docs/*
 
-## Scope
-- Allowed to modify:
-- Do not modify:
+# Codex Agent Instructions SHORT term (agent-writable)
+- After new PR is created, update README.md (keep all HEADER1 unchanged or propose new if necessary), and afterwards return to the main branch: `git checkout main`
+- Look for code consistency accross different categories of code: UI components, business logic, models, configs
+- Optimize safty: what is exposed to user, and what is exposed to the public repo
 
-## Workflow
-- Analyze and propose a plan before editing
-- Ask questions if requirements are unclear
-- Run `dotnet build` and `dotnet test` after changes
+# Codex Agent Instructions for agent SELF improvement (non human usage, keep under 10 lines)
 
-## Coding standards
-- React hooks and functional components
-- No new dependencies without approval
-
-## Git / GitHub practices (the role of main and how to update origin/main)
-- **`origin/main` is protected and must only change via GitHub Pull Requests (PRs)**
-    - Do **not** push directly to `main` (no `git push origin main`)
-    - Do **not** merge locally into `main` and push
-    - The only allowed way to update `origin/main` is: **create a feature branch → open a PR → merge the PR in GitHub UI**
-
-- **Branching rule (mandatory):**
-    - For every task, create a new branch from the latest `origin/main`:
-        - `git fetch origin`
-        - `git switch main && git reset --hard origin/main` (or `git pull --ff-only` if clean/fast-forwardable)
-        - `git switch -c feature/<short-name>`
-    - All commits must go to the feature branch
-
-- **PR rule (mandatory):**
-    - Push only the feature branch: `git push -u origin feature/<short-name>`
-    - Open a PR against `main`
-    - Ensure CI checks pass and resolve review comments
-    - Squash merge the PR **in GitHub**
-
-- **Keep branches up to date without touching local `main`:**
-    - Update feature branches by rebasing onto the latest `origin/main`:
-        - `git fetch origin`
-        - `git rebase origin/main`
-    - If rebase is not allowed, merge `origin/main` into the feature branch (still never into local `main`):
-        - `git fetch origin`
-        - `git merge origin/main`
-
-- **Local `main` is read-only:**
-    - Never commit on `main`
-    - Never keep work on `main`
-    - `main` is only used to track `origin/main` (fast-forward/reset to match remote) and as the base for new feature branches
-
-## Project Structure & Module Organization
-- `src/` contains all application code
-- `src/components/` holds React UI components (e.g., `DayCard.tsx`, `SearchBar.tsx`)
-- `src/redux/` contains the Redux store, hooks, and slices
-- `src/services/` wraps OpenWeatherMap API calls
-- `src/utils/` holds pure helpers such as `weatherUtils.ts`
-- `src/types/` stores TypeScript types
-- `src/test/` includes Vitest setup; test files live alongside source (e.g., `src/utils/weatherUtils.test.ts`)
-- `public/` is for static assets; Vite entry is `index.html`
-
-## Build, Test, and Development Commands
-- `npm run dev`: start the Vite dev server at `http://localhost:5173`
-- `npm run build`: type-check with `tsc -b` and create a production build in `dist/`
-- `npm run preview`: serve the production build locally
-- `npm run lint`: run ESLint across the repo
-- `npm run test`: run unit tests with Vitest
-- `npm run test:ui`: open Vitest UI
-- `npm run test:coverage`: generate coverage report
-
-## Coding Style & Naming Conventions
-- TypeScript + React with functional components
-- Indentation: 2 spaces; keep JSX props vertically aligned when multi-line
-- Filenames: PascalCase for components (`ForecastList.tsx`), camelCase for non-components (`weatherUtils.ts`)
-- Linting: ESLint via `eslint.config.js`; fix lint before committing
-
-## Testing Guidelines
-- Frameworks: Vitest + Testing Library + JSDOM
-- Test files use `.test.ts` or `.test.tsx` adjacent to source (examples in `src/components/` and `src/utils/`)
-- Prefer testing public behavior (rendered UI, user events, slice reducers) over internal implementation details
-
-## Commit & Pull Request Guidelines
-- Commit messages in history are short, imperative, and capitalized (e.g., “Update .gitignore”)
-- PRs should include a clear summary, testing steps (`npm run test`/`npm run lint`), and screenshots for UI changes
-- Link related issues when applicable
-
-## Configuration & Secrets
-- Copy `.env.example` to `.env` and set `VITE_OPENWEATHER_API_KEY`
-- Do not commit real API keys or local `.env` changes

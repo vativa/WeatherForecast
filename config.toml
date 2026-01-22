@@ -1,0 +1,14 @@
+# Agent writable configuration
+
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+
+[sandbox]
+# Add .git to readable roots so tools can traverse it without warnings.
+readable_roots = ["/Users/vativa/code/WeatherForecast/.git"]
+# Keep writes scoped to the project.
+writable_roots = ["/Users/vativa/code/WeatherForecast"]
+
+[shell_environment_policy]
+include_only = ["PATH", "HOME"]
+

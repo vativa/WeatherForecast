@@ -43,6 +43,20 @@ vi.mock('../redux/weatherSlice', () => ({
 
 vi.mock('react-bootstrap', async () => {
   const actual = await vi.importActual<typeof import('react-bootstrap')>('react-bootstrap');
+  const Alert = (({
+    children,
+    onClose,
+  }: {
+    children: React.ReactNode;
+    onClose?: () => void;
+  }) => (
+    <div>
+      <button type="button" aria-label="Close" onClick={onClose}>
+        Close
+      </button>
+      {children}
+    </div>
+  )) as unknown as typeof actual.Alert;
   const Toast = (({ children, show }: { children: React.ReactNode; show?: boolean }) =>
     show ? <div>{children}</div> : null) as unknown as typeof actual.Toast;
   Toast.Header = (({ children }: { children: React.ReactNode }) => (
@@ -54,6 +68,7 @@ vi.mock('react-bootstrap', async () => {
 
   return {
     ...actual,
+    Alert,
     Toast,
     ToastContainer: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   };
