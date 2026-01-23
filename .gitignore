@@ -1,4 +1,4 @@
-# Editor directories and files
+# OS and IDE files
 .env
 .idea/
 .vscode/*
@@ -10,6 +10,7 @@
 *.njsproj
 *.sln
 *.sw?
+.certs/
 
 # Logs
 logs
@@ -21,7 +22,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Node modules and build outputs
+node_modules/
+dist/
+dist-ssr/
 *.local

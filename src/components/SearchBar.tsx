@@ -18,6 +18,10 @@ export const SearchBar = () => {
   };
 
   const handleGeolocation = () => {
+    if (!window.isSecureContext) {
+      setGeoError('Location access requires a secure origin (HTTPS or localhost)');
+      return;
+    }
     if (!navigator.geolocation) {
       setGeoError('Geolocation is not supported by your browser');
       return;

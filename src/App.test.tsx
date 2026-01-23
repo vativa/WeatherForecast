@@ -58,13 +58,13 @@ describe('App', () => {
     mocks.selectorState.weather.currentLocation = null;
   });
 
-  it('renders header and welcome message when idle with no forecasts', () => {
+  it('renders header and search message when idle with no forecasts', () => {
     render(<App />);
 
     expect(screen.getByText('⛅ Weather Forecast')).toBeInTheDocument();
     expect(screen.getByText('5-Day Weather Forecast')).toBeInTheDocument();
     expect(screen.getByTestId('search-bar')).toBeInTheDocument();
-    expect(screen.getByText('Welcome!')).toBeInTheDocument();
+    expect(screen.getByText(/Search for a city/)).toBeInTheDocument();
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
     expect(screen.queryByTestId('forecast-list')).not.toBeInTheDocument();
     expect(screen.getByTestId('hourly-details-modal')).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
-    expect(screen.queryByText('Welcome!')).not.toBeInTheDocument();
+    expect(screen.queryByText(/Search for a city/)).not.toBeInTheDocument();
     expect(screen.queryByTestId('forecast-list')).not.toBeInTheDocument();
   });
 
@@ -84,7 +84,7 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByTestId('forecast-list')).toBeInTheDocument();
-    expect(screen.queryByText('Welcome!')).not.toBeInTheDocument();
+    expect(screen.queryByText(/Search for a city/)).not.toBeInTheDocument();
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
   });
 });

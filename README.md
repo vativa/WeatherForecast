@@ -37,12 +37,15 @@ Built with Redux Toolkit for state management and React Bootstrap for UI compone
    ```bash
    npm run dev
    ```
+   `npm run dev` already includes these flags in `package.json`, so you can omit them if you want.
+   Self-signed certs live in `.certs/`. Regenerate them if your LAN IP changes.
 6. **Open your browser**
-   Navigate to `http://localhost:5173`
+   Navigate to `https://localhost:5173` (or `https://<your-lan-ip>:5173` on another device)
+   You will need to trust the self-signed certificate on any device accessing the app.
 
 ## Available Scripts
 
-- `npm run dev` - Start the Vite development server at `http://localhost:5173`
+- `npm run dev` - Start dev server with HTTPS and LAN access
 - `npm run test` - Run unit tests with Vitest
 - `npm run lint` - Run ESLint across the repo
 - `npm run build` - Build for production in `dist/`

@@ -83,6 +83,14 @@ const setGeolocation = (impl?: Geolocation['getCurrentPosition']) => {
 
 describe('SearchBar', () => {
   const originalGeolocation = navigator.geolocation;
+  const originalSecureContext = window.isSecureContext;
+
+  const setSecureContext = (value: boolean) => {
+    Object.defineProperty(window, 'isSecureContext', {
+      configurable: true,
+      value,
+    });
+  };
 
   beforeEach(() => {
     mocks.mockDispatch.mockClear();
@@ -92,12 +100,17 @@ describe('SearchBar', () => {
     mocks.selectorState.weather.loading = false;
     mocks.selectorState.weather.error = null;
     setGeolocation();
+    setSecureContext(true);
   });
 
   afterEach(() => {
     Object.defineProperty(navigator, 'geolocation', {
       configurable: true,
       value: originalGeolocation,
+    });
+    Object.defineProperty(window, 'isSecureContext', {
+      configurable: true,
+      value: originalSecureContext,
     });
   });
 
@@ -190,6 +203,20 @@ describe('SearchBar', () => {
     fireEvent.click(screen.getByRole('button', { name: '📍 My Location' }));
 
     expect(await screen.findByText('Geolocation is not supported by your browser')).toBeInTheDocument();
+  });
+
+  it('shows error toast when origin is not secure', async () => {
+    const geoSpy = vi.fn();
+    setGeolocation(geoSpy);
+    setSecureContext(false);
+    render(<SearchBar />);
+
+    fireEvent.click(screen.getByRole('button', { name: '📍 My Location' }));
+
+    expect(
+      await screen.findByText('Location access requires a secure origin (HTTPS or localhost)')
+    ).toBeInTheDocument();
+    expect(geoSpy).not.toHaveBeenCalled();
   });
 
   it('renders error alert and clears it on dismiss', () => {
