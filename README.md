@@ -33,7 +33,15 @@ Built with Redux Toolkit for state management and React Bootstrap for UI compone
    ```
    VITE_OPENWEATHER_API_KEY=your_openweathermap_apikey
    ```
-5. **Start the development server**
+5. **Generate local HTTPS certificates**
+   ```bash
+   mkdir -p .certs
+   openssl req -x509 -newkey rsa:2048 -nodes -days 365 \
+     -keyout .certs/local-dev-key.pem \
+     -out .certs/local-dev-cert.pem \
+     -subj "/CN=localhost"
+   ```
+6. **Start the development server**
    ```bash
    npm run dev
    ```
