@@ -18,6 +18,11 @@ export const SearchBar = () => {
   };
 
   const handleGeolocation = () => {
+    setCity('');
+    if (!window.isSecureContext) {
+      setGeoError('Location access requires a secure origin (HTTPS or localhost)');
+      return;
+    }
     if (!navigator.geolocation) {
       setGeoError('Geolocation is not supported by your browser');
       return;
@@ -75,7 +80,7 @@ export const SearchBar = () => {
             disabled={loading || geoLoading}
             title="Use my location"
           >
-            {geoLoading ? 'Getting location...' : '📍 My Location'}
+            {geoLoading ? 'Getting location...' : 'Get Location'}
           </Button>
         </InputGroup>
       </Form>
