@@ -1,5 +1,5 @@
 ## Codex Agent Instructions LONG term (agent-readonly)
-./.agent-docs/*
+./.agent-readonly/*
 
 ## Codex Agent Instructions SHORT term (agent-writable)
 - After new PR is created, check README.md, propose updates if necessary, and afterwards return to the main branch
