@@ -90,7 +90,7 @@ Built with Redux Toolkit for state management and React Bootstrap for UI compone
 3. View the 5-day forecast
 
 ### Use Geolocation
-1. Click the "📍 My Location" button
+1. Click the "Get Location" button
 2. Allow location access when prompted
 3. Weather data for your location will be displayed
 
