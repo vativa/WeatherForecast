@@ -176,7 +176,7 @@ and assist with complex logic implementations, allowing developers to focus on h
 
 ### GitHub Copilot
 - Used in VSCode & WebStorm for local codebase inspection and inline suggestions while editing.
-- Supports pull request reviews on GitHub.com for quick feedback on diffs, suggestioons, and tests.
+- Supports pull request reviews on GitHub.com for quick feedback on diffs, suggestions, and tests.
 
 ## Contributing
 1. Fork the repository (local `main` is read-only, `origin/main` is protected)
