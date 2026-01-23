@@ -13,7 +13,7 @@ export const ForecastList = () => {
     <div className="mb-4">
       {currentLocation && (
         <h3 className="text-center mb-4">
-          5-Days Forecast for {currentLocation.city}, {currentLocation.country}
+          5-Day Forecast for {currentLocation.city}, {currentLocation.country}
         </h3>
       )}
       <Row xs={1} md={3} lg={5} className="g-3">

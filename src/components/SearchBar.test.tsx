@@ -164,6 +164,18 @@ describe('SearchBar', () => {
     expect(screen.getByRole('button', { name: 'Search' })).toBeDisabled();
   });
 
+  it('clears the city input when geolocation is requested', () => {
+    setGeolocation(() => {});
+    render(<SearchBar />);
+
+    const input = screen.getByPlaceholderText('Enter city name...');
+    fireEvent.change(input, { target: { value: 'Tokyo' } });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Get Location' }));
+
+    expect(input).toHaveValue('');
+  });
+
   it('dispatches coordinates on geolocation success', async () => {
     setGeolocation((success) => {
       success(

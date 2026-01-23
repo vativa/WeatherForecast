@@ -29,10 +29,6 @@ model_reasoning_effort = "medium" # Faster responses with moderate effort
 [shell_environment_policy]
 include_only = ["PATH", "HOME"] # Limit environment variables for security
 
-[mcp_servers.context7]
-command = "npx" # Use npx to run the MCP client
-args = ["-y", "@upstash/context7-mcp@latest"] # Ensure the latest version is used
-
 [sandbox]
 # Add .git to readable roots so tools can traverse it without warnings.
 readable_roots = ["/Users/vativa/code/WeatherForecast/.git"]
