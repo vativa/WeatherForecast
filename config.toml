@@ -1,14 +1,40 @@
-# Agent writable configuration
+model = "gpt-5.2-codex-max" # Use the most capable model for the agent
+model_reasoning_effort = "medium" # Balance between speed and thoroughness
+sandbox_mode = "workspace-write" # Allow writing within the workspace
+approval_policy = "on-request" # Require approval for sensitive actions
 
-sandbox_mode = "workspace-write"
-approval_policy = "on-request"
+[app]
+name = "WeatherForecast"
+env = "development"
+
+[logging]
+level = "info" # Set logging level to info for general monitoring
+
+[cache]
+enabled = true # Enable caching to improve performance
+ttl_seconds = 300 # Cache entries expire after 5 minutes
+
+[feature_flags]
+use_mock_data = false # Disable mock data for real interactions
+
+[features]
+web_search_request = true # Enable web search requests
+streamable_shell = true # Enable streamable shell output
+rmcp_client = true # Enable RMCP client support
+
+[profiles.fast]
+model = "gpt-5.2-codex-mini" # Use a faster, smaller model
+model_reasoning_effort = "medium" # Faster responses with moderate effort
+
+[shell_environment_policy]
+include_only = ["PATH", "HOME"] # Limit environment variables for security
+
+[mcp_servers.context7]
+command = "npx" # Use npx to run the MCP client
+args = ["-y", "@upstash/context7-mcp@latest"] # Ensure the latest version is used
 
 [sandbox]
 # Add .git to readable roots so tools can traverse it without warnings.
 readable_roots = ["/Users/vativa/code/WeatherForecast/.git"]
 # Keep writes scoped to the project.
 writable_roots = ["/Users/vativa/code/WeatherForecast"]
-
-[shell_environment_policy]
-include_only = ["PATH", "HOME"]
-
