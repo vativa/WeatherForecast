@@ -23,7 +23,7 @@ export const DayCard = ({ forecast }: DayCardProps) => {
       style={{ cursor: 'pointer' }}
     >
       <Card.Body>
-        <Card.Title>{getDayName(forecast.date)}</Card.Title>
+        <Card.Title as="h6">{getDayName(forecast.date)}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
           {new Date(forecast.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
         </Card.Subtitle>
