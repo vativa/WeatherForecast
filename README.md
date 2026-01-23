@@ -39,6 +39,7 @@ Built with Redux Toolkit for state management and React Bootstrap for UI compone
    ```
    `npm run dev` already includes these flags in `package.json`, so you can omit them if you want.
    Self-signed certs live in `.certs/`. Regenerate them if your LAN IP changes.
+   If the cert files are missing, the dev server falls back to HTTP (useful for CI/builds).
 6. **Open your browser**
    Navigate to `https://localhost:5173` (or `https://<your-lan-ip>:5173` on another device)
    You will need to trust the self-signed certificate on any device accessing the app.
