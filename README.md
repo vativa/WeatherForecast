@@ -162,6 +162,22 @@ The built files will be in the `dist/` directory and can be deployed to any stat
 npm run build
 ```
 
+## How are code Agents used?
+
+This project leverages AI code assistants like OpenAI Codex and GitHub Copilot to enhance developer productivity.
+These tools help generate boilerplate code, suggest improvements, review pull requests, guarantee safety,
+and assist with complex logic implementations, allowing developers to focus on higher-level design and functionality.
+
+### OpenAI Codex
+- Works inside this repo with the agent rules in `AGENTS.md` and `.agent-readonly/` (coding style, tests-first for components).
+- Uses the repo `config.toml` sandbox settings (read/write scoped to the project) to keep changes safe.
+- Checks consistency across UI components, business logic, models, and configs.
+- Flags exposure risks for user-facing data and anything committed to the public repository.
+
+### GitHub Copilot
+- Used in VSCode & WebStorm for local codebase inspection and inline suggestions while editing.
+- Supports pull request reviews on GitHub.com for quick feedback on diffs, suggestioons, and tests.
+
 ## Contributing
 1. Fork the repository (local `main` is read-only, `origin/main` is protected)
 2. Create a feature branch (`git checkout -b feature/branch-name`)
