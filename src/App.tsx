@@ -13,7 +13,6 @@ function App() {
     <Container className="py-4">
       <div className="text-center mb-4">
         <h1 className="display-4">⛅ Weather Forecast</h1>
-        <p className="lead text-muted">5-Day Weather Forecast</p>
       </div>
       <SearchBar />
       {!loading && dailyForecasts.length === 0 && (

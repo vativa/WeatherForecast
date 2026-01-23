@@ -146,7 +146,7 @@ describe('SearchBar', () => {
 
     const input = screen.getByPlaceholderText('Enter city name...');
     const searchButton = screen.getByRole('button', { name: 'Searching...' });
-    const geoButton = screen.getByRole('button', { name: '📍 My Location' });
+    const geoButton = screen.getByRole('button', { name: 'Get Location' });
 
     expect(input).toBeDisabled();
     expect(searchButton).toBeDisabled();
@@ -157,7 +157,7 @@ describe('SearchBar', () => {
     setGeolocation(() => {});
     render(<SearchBar />);
 
-    fireEvent.click(screen.getByRole('button', { name: '📍 My Location' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Get Location' }));
 
     expect(screen.getByRole('button', { name: 'Getting location...' })).toBeDisabled();
     expect(screen.getByPlaceholderText('Enter city name...')).toBeDisabled();
@@ -174,7 +174,7 @@ describe('SearchBar', () => {
     });
     render(<SearchBar />);
 
-    fireEvent.click(screen.getByRole('button', { name: '📍 My Location' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Get Location' }));
 
     await waitFor(() => {
     expect(mocks.fetchWeatherByCoordinates).toHaveBeenCalledWith({ lat: 40.7, lon: -74.0 });
@@ -182,7 +182,7 @@ describe('SearchBar', () => {
     expect(mocks.mockDispatch).toHaveBeenCalledWith(
       mocks.fetchWeatherByCoordinates.mock.results[0].value
     );
-    expect(screen.getByRole('button', { name: '📍 My Location' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Get Location' })).toBeEnabled();
   });
 
   it('shows error toast on geolocation failure', async () => {
@@ -191,7 +191,7 @@ describe('SearchBar', () => {
     });
     render(<SearchBar />);
 
-    fireEvent.click(screen.getByRole('button', { name: '📍 My Location' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Get Location' }));
 
     expect(await screen.findByText('Error getting location: Permission denied')).toBeInTheDocument();
   });
@@ -200,7 +200,7 @@ describe('SearchBar', () => {
     setGeolocation();
     render(<SearchBar />);
 
-    fireEvent.click(screen.getByRole('button', { name: '📍 My Location' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Get Location' }));
 
     expect(await screen.findByText('Geolocation is not supported by your browser')).toBeInTheDocument();
   });
@@ -211,7 +211,7 @@ describe('SearchBar', () => {
     setSecureContext(false);
     render(<SearchBar />);
 
-    fireEvent.click(screen.getByRole('button', { name: '📍 My Location' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Get Location' }));
 
     expect(
       await screen.findByText('Location access requires a secure origin (HTTPS or localhost)')

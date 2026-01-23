@@ -68,7 +68,7 @@ describe('ForecastList', () => {
     render(<ForecastList />);
 
     expect(
-      screen.getByText('5-Day Forecast for Paris, FR')
+      screen.getByText('5-Days Forecast for Paris, FR')
     ).toBeInTheDocument();
     expect(screen.getAllByTestId('day-card')).toHaveLength(2);
     expect(screen.getByText('Click on a day to see hourly details')).toBeInTheDocument();
@@ -79,6 +79,6 @@ describe('ForecastList', () => {
 
     render(<ForecastList />);
 
-    expect(screen.queryByText(/5-Day Forecast for/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/5-Days Forecast for/i)).not.toBeInTheDocument();
   });
 });

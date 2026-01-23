@@ -94,7 +94,6 @@ Built with Redux Toolkit for state management and React Bootstrap for UI compone
 ```
 src/
 ├── assets/             # Static assets
-│   └── react.svg       # Vite React logo
 ├── components/         # React UI components + tests
 │   ├── DayCard.tsx
 │   ├── DayCard.test.tsx

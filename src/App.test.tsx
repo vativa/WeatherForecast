@@ -62,7 +62,6 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByText('⛅ Weather Forecast')).toBeInTheDocument();
-    expect(screen.getByText('5-Day Weather Forecast')).toBeInTheDocument();
     expect(screen.getByTestId('search-bar')).toBeInTheDocument();
     expect(screen.getByText(/Search for a city/)).toBeInTheDocument();
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
