@@ -31,6 +31,6 @@ include_only = ["PATH", "HOME"] # Limit environment variables for security
 
 [sandbox]
 # Add .git to readable roots so tools can traverse it without warnings.
-readable_roots = ["/Users/vativa/code/WeatherForecast/.git"]
-# Keep writes scoped to the project.
-writable_roots = ["/Users/vativa/code/WeatherForecast"]
+readable_roots = [".git"]
+# Keep writes scoped to the project (repository root).
+writable_roots = ["."]
