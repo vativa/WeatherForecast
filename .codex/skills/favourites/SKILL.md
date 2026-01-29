@@ -20,6 +20,7 @@ description: Persist favourite locations on page refresh, list under SearchBar, 
 - Activating a timer without current location will result in empty expectations by the user.
 - Please notify the user about missing curent location with warning.
 - Do not activate auto refresh interval without current location.
+- Do not disable interval buttonss on missing current location, just warn the user on click.
 
 # Code Standards
 - Keep files under 100 lines where possible.

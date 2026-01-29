@@ -55,9 +55,12 @@ describe('AutoRefreshControls', () => {
     mocks.selectInterval.mockClear();
     mocks.addCustomInterval.mockClear();
     mocks.removeCustomInterval.mockClear();
+    mocks.selectorState.autoRefresh.selectedInterval = null;
+    mocks.selectorState.weather.currentLocation = null;
   });
 
   it('dispatches selectInterval when a preset is clicked', () => {
+    mocks.selectorState.weather.currentLocation = { city: 'Rome', country: 'IT' };
     render(<AutoRefreshControls />);
 
     fireEvent.click(screen.getByRole('button', { name: '15 min' }));
@@ -87,6 +90,7 @@ describe('AutoRefreshControls', () => {
 
     expect(mocks.addCustomInterval).toHaveBeenCalledWith(10);
     expect(mocks.selectInterval).not.toHaveBeenCalled();
+    expect(screen.getByText('Select a location to start auto-refresh.')).toBeInTheDocument();
   });
 
   it('removes a custom interval', () => {
@@ -100,10 +104,12 @@ describe('AutoRefreshControls', () => {
     );
   });
 
-  it('shows a warning when interval is selected without location', () => {
-    mocks.selectorState.autoRefresh.selectedInterval = 15;
+  it('shows a warning when selecting without location', () => {
     render(<AutoRefreshControls />);
 
+    fireEvent.click(screen.getByRole('button', { name: '15 min' }));
+
     expect(screen.getByText('Select a location to start auto-refresh.')).toBeInTheDocument();
+    expect(mocks.selectInterval).not.toHaveBeenCalled();
   });
 });

@@ -14,6 +14,7 @@ export const AutoRefreshControls = () => {
   );
   const currentLocation = useAppSelector((state) => state.weather.currentLocation);
   const [customValue, setCustomValue] = useState('');
+  const [showMissingLocation, setShowMissingLocation] = useState(false);
   const parsedCustomValue = Number.parseInt(customValue, 10);
   const canAdd = Number.isFinite(parsedCustomValue) && parsedCustomValue > 0;
 
@@ -23,16 +24,28 @@ export const AutoRefreshControls = () => {
       return;
     }
     dispatch(addCustomInterval(parsedCustomValue));
-    if (currentLocation) {
-      dispatch(selectInterval(parsedCustomValue));
+    if (!currentLocation) {
+      setShowMissingLocation(true);
+      setCustomValue('');
+      return;
     }
+    dispatch(selectInterval(parsedCustomValue));
     setCustomValue('');
+  };
+
+  const handleSelectInterval = (value: number | null) => {
+    if (value !== null && !currentLocation) {
+      setShowMissingLocation(true);
+      return;
+    }
+    setShowMissingLocation(false);
+    dispatch(selectInterval(value));
   };
 
   return (
     <div className="auto-refresh mb-3">
       <div className="text-muted small mb-2">Auto-refresh</div>
-      {selectedInterval && !currentLocation && (
+      {showMissingLocation && (
         <Alert variant="warning" className="py-2 mb-3">
           Select a location to start auto-refresh.
         </Alert>
@@ -41,7 +54,7 @@ export const AutoRefreshControls = () => {
         <Button
           variant={selectedInterval === null ? 'secondary' : 'outline-secondary'}
           size="sm"
-          onClick={() => dispatch(selectInterval(null))}
+          onClick={() => handleSelectInterval(null)}
         >
           Off
         </Button>
@@ -50,8 +63,7 @@ export const AutoRefreshControls = () => {
             key={value}
             variant={selectedInterval === value ? 'primary' : 'outline-primary'}
             size="sm"
-            onClick={() => dispatch(selectInterval(value))}
-            disabled={!currentLocation}
+            onClick={() => handleSelectInterval(value)}
           >
             {value} min
           </Button>
@@ -83,8 +95,7 @@ export const AutoRefreshControls = () => {
               <Button
                 variant={selectedInterval === value ? 'primary' : 'outline-primary'}
                 size="sm"
-                onClick={() => dispatch(selectInterval(value))}
-                disabled={!currentLocation}
+                onClick={() => handleSelectInterval(value)}
               >
                 {value} min
               </Button>
