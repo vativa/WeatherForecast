@@ -4,17 +4,23 @@ import type { DailyForecast } from '../types/weather';
 import { ForecastList } from './ForecastList';
 
 const mocks = vi.hoisted(() => {
+  const mockDispatch = vi.fn();
   const selectorState = {
     weather: {
       dailyForecasts: [] as DailyForecast[],
       currentLocation: null as { city: string; country: string } | null,
     },
+    favourites: {
+      items: [] as { city: string; country: string }[],
+      showList: false,
+    },
   };
 
-  return { selectorState };
+  return { selectorState, mockDispatch };
 });
 
 vi.mock('../redux/hooks', () => ({
+  useAppDispatch: () => mocks.mockDispatch,
   useAppSelector: (selector: (state: typeof mocks.selectorState) => unknown) =>
     selector(mocks.selectorState),
 }));
@@ -50,6 +56,7 @@ describe('ForecastList', () => {
   beforeEach(() => {
     mocks.selectorState.weather.dailyForecasts = [];
     mocks.selectorState.weather.currentLocation = null;
+    mocks.mockDispatch.mockClear();
   });
 
   it('renders nothing when there are no forecasts', () => {

@@ -1,23 +1,37 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import type { DailyForecast } from './types/weather';
 import App from './App';
 
 const mocks = vi.hoisted(() => {
+  const mockDispatch = vi.fn();
   const selectorState = {
     weather: {
       loading: false,
       dailyForecasts: [] as DailyForecast[],
       currentLocation: null as { city: string; country: string } | null,
     },
+    autoRefresh: {
+      selectedInterval: null as number | null,
+    },
   };
 
-  return { selectorState };
+  const fetchWeatherByCity = vi.fn((city: string) => ({
+    type: 'weather/fetchByCity',
+    payload: city,
+  }));
+
+  return { selectorState, mockDispatch, fetchWeatherByCity };
 });
 
 vi.mock('./redux/hooks', () => ({
+  useAppDispatch: () => mocks.mockDispatch,
   useAppSelector: (selector: (state: typeof mocks.selectorState) => unknown) =>
     selector(mocks.selectorState),
+}));
+
+vi.mock('./redux/weatherSlice', () => ({
+  fetchWeatherByCity: mocks.fetchWeatherByCity,
 }));
 
 vi.mock('./components/SearchBar', () => ({
@@ -30,6 +44,10 @@ vi.mock('./components/LoadingSpinner', () => ({
 
 vi.mock('./components/HourlyDetailsModal', () => ({
   HourlyDetailsModal: () => <div data-testid="hourly-details-modal">HourlyDetailsModal</div>,
+}));
+
+vi.mock('./components/TopNavBar', () => ({
+  TopNavBar: () => <div data-testid="top-nav-bar">TopNavBar</div>,
 }));
 
 vi.mock('./components/ForecastList', () => ({
@@ -56,6 +74,13 @@ describe('App', () => {
     mocks.selectorState.weather.loading = false;
     mocks.selectorState.weather.dailyForecasts = [];
     mocks.selectorState.weather.currentLocation = null;
+    mocks.selectorState.autoRefresh.selectedInterval = null;
+    mocks.mockDispatch.mockClear();
+    mocks.fetchWeatherByCity.mockClear();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('renders header and search message when idle with no forecasts', () => {
@@ -85,5 +110,21 @@ describe('App', () => {
     expect(screen.getByTestId('forecast-list')).toBeInTheDocument();
     expect(screen.queryByText(/Search for a city/)).not.toBeInTheDocument();
     expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+  });
+
+  it('auto-refreshes when an interval and location are selected', () => {
+    vi.useFakeTimers();
+    mocks.selectorState.weather.currentLocation = { city: 'Paris', country: 'FR' };
+    mocks.selectorState.autoRefresh.selectedInterval = 15;
+
+    render(<App />);
+    expect(mocks.fetchWeatherByCity).toHaveBeenCalledWith('Paris, FR');
+    vi.advanceTimersByTime(15 * 60 * 1000);
+
+    expect(mocks.fetchWeatherByCity).toHaveBeenCalledWith('Paris, FR');
+    expect(mocks.mockDispatch).toHaveBeenCalledWith(
+      mocks.fetchWeatherByCity.mock.results[0].value
+    );
+    expect(mocks.fetchWeatherByCity).toHaveBeenCalledTimes(2);
   });
 });

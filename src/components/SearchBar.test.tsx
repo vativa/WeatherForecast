@@ -9,6 +9,15 @@ const mocks = vi.hoisted(() => {
       loading: false,
       error: null as string | null,
     },
+    favourites: {
+      items: [] as { city: string; country: string }[],
+      showList: false,
+    },
+    autoRefresh: {
+      presetIntervals: [15, 30, 60],
+      customIntervals: [] as number[],
+      selectedInterval: null as number | null,
+    },
   };
   const fetchWeatherByCity = vi.fn((city: string) => ({
     type: 'weather/fetchByCity',
