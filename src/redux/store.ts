@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import weatherReducer from './weatherSlice';
+import favouritesReducer from './favouritesSlice';
 
 export const store = configureStore({
   reducer: {
     weather: weatherReducer,
+    favourites: favouritesReducer,
   },
 });
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form, Button, InputGroup, Alert, Toast, ToastContainer } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchWeatherByCity, fetchWeatherByCoordinates, clearError } from '../redux/weatherSlice';
+import { FavouritesList } from './FavouritesList';
 
 export const SearchBar = () => {
   const [city, setCity] = useState('');
@@ -84,6 +85,7 @@ export const SearchBar = () => {
           </Button>
         </InputGroup>
       </Form>
+      <FavouritesList />
     </div>
   );
 };

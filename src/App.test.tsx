@@ -32,6 +32,10 @@ vi.mock('./components/HourlyDetailsModal', () => ({
   HourlyDetailsModal: () => <div data-testid="hourly-details-modal">HourlyDetailsModal</div>,
 }));
 
+vi.mock('./components/TopNavBar', () => ({
+  TopNavBar: () => <div data-testid="top-nav-bar">TopNavBar</div>,
+}));
+
 vi.mock('./components/ForecastList', () => ({
   ForecastList: () =>
     mocks.selectorState.weather.dailyForecasts.length === 0 ? null : (

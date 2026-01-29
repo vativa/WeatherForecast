@@ -3,6 +3,7 @@ import { SearchBar } from './components/SearchBar';
 import { ForecastList } from './components/ForecastList';
 import { HourlyDetailsModal } from './components/HourlyDetailsModal';
 import { LoadingSpinner } from './components/LoadingSpinner';
+import { TopNavBar } from './components/TopNavBar';
 import { useAppSelector } from './redux/hooks';
 import './App.css';
 
@@ -10,18 +11,21 @@ function App() {
   const { loading, dailyForecasts } = useAppSelector((state) => state.weather);
 
   return (
-    <Container className="py-4">
-      <div className="text-center mb-4">
-        <h1 className="display-4">⛅ Weather Forecast</h1>
-      </div>
-      <SearchBar />
-      {!loading && dailyForecasts.length === 0 && (
-        <p className="text-center">Search for a city or use your location to get started</p>
-      )}
-      {loading && <LoadingSpinner />}
-      {!loading && <ForecastList />}
-      <HourlyDetailsModal />
-    </Container>
+    <>
+      <TopNavBar />
+      <Container className="py-4">
+        <div className="text-center mb-4">
+          <h1 className="display-4">⛅ Weather Forecast</h1>
+        </div>
+        <SearchBar />
+        {!loading && dailyForecasts.length === 0 && (
+          <p className="text-center">Search for a city or use your location to get started</p>
+        )}
+        {loading && <LoadingSpinner />}
+        {!loading && <ForecastList />}
+        <HourlyDetailsModal />
+      </Container>
+    </>
   );
 }
 
