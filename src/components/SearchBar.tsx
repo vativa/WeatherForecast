@@ -3,6 +3,7 @@ import { Form, Button, InputGroup, Alert, Toast, ToastContainer } from 'react-bo
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchWeatherByCity, fetchWeatherByCoordinates, clearError } from '../redux/weatherSlice';
 import { FavouritesList } from './FavouritesList';
+import { AutoRefreshControls } from './AutoRefreshControls';
 
 export const SearchBar = () => {
   const [city, setCity] = useState('');
@@ -85,6 +86,7 @@ export const SearchBar = () => {
           </Button>
         </InputGroup>
       </Form>
+      <AutoRefreshControls />
       <FavouritesList />
     </div>
   );

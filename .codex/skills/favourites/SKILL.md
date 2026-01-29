@@ -17,6 +17,8 @@ description: Persist favourite locations on page refresh, list under SearchBar, 
 - Always use current location from the Redux store to fetch weather data.
 - Add autorefresh logic to fetch weather data for the current location based on selected interval.
 - Each custom interval entry has a "X" delete button to remove it from the list.
+- Activating a timer without current location will result in empty expectations by the user.
+- Please notify the user about missing curent location with warning.
 
 # Code Standards
 - Keep files under 100 lines where possible.

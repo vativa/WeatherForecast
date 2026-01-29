@@ -1,14 +1,41 @@
+import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { SearchBar } from './components/SearchBar';
 import { ForecastList } from './components/ForecastList';
 import { HourlyDetailsModal } from './components/HourlyDetailsModal';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { TopNavBar } from './components/TopNavBar';
-import { useAppSelector } from './redux/hooks';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { fetchWeatherByCity } from './redux/weatherSlice';
 import './App.css';
 
 function App() {
-  const { loading, dailyForecasts } = useAppSelector((state) => state.weather);
+  const dispatch = useAppDispatch();
+  const { loading, dailyForecasts, currentLocation } = useAppSelector((state) => state.weather);
+  const { selectedInterval } = useAppSelector((state) => state.autoRefresh);
+
+  useEffect(() => {
+    if (!selectedInterval || !currentLocation) {
+      return;
+    }
+
+    dispatch(
+      fetchWeatherByCity(`${currentLocation.city}, ${currentLocation.country}`)
+    );
+
+    const intervalId = window.setInterval(() => {
+      dispatch(
+        fetchWeatherByCity(`${currentLocation.city}, ${currentLocation.country}`)
+      );
+    }, selectedInterval * 60 * 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, [
+    dispatch,
+    selectedInterval,
+    currentLocation?.city,
+    currentLocation?.country,
+  ]);
 
   return (
     <>
