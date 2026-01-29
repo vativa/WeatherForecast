@@ -19,6 +19,7 @@ description: Persist favourite locations on page refresh, list under SearchBar, 
 - Each custom interval entry has a "X" delete button to remove it from the list.
 - Activating a timer without current location will result in empty expectations by the user.
 - Please notify the user about missing curent location with warning.
+- Do not activate auto refresh interval without current location.
 
 # Code Standards
 - Keep files under 100 lines where possible.

@@ -66,7 +66,8 @@ describe('AutoRefreshControls', () => {
     expect(mocks.mockDispatch).toHaveBeenCalledWith(mocks.selectInterval.mock.results[0].value);
   });
 
-  it('adds a custom interval from input', () => {
+  it('adds a custom interval from input and selects when location is set', () => {
+    mocks.selectorState.weather.currentLocation = { city: 'Rome', country: 'IT' };
     render(<AutoRefreshControls />);
 
     fireEvent.change(screen.getByLabelText('Custom interval'), { target: { value: '90' } });
@@ -76,6 +77,16 @@ describe('AutoRefreshControls', () => {
     expect(mocks.selectInterval).toHaveBeenCalledWith(90);
     expect(mocks.mockDispatch).toHaveBeenCalledWith(mocks.addCustomInterval.mock.results[0].value);
     expect(mocks.mockDispatch).toHaveBeenCalledWith(mocks.selectInterval.mock.results[0].value);
+  });
+
+  it('does not select a custom interval when location is missing', () => {
+    render(<AutoRefreshControls />);
+
+    fireEvent.change(screen.getByLabelText('Custom interval'), { target: { value: '10' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Add' }));
+
+    expect(mocks.addCustomInterval).toHaveBeenCalledWith(10);
+    expect(mocks.selectInterval).not.toHaveBeenCalled();
   });
 
   it('removes a custom interval', () => {

@@ -23,7 +23,9 @@ export const AutoRefreshControls = () => {
       return;
     }
     dispatch(addCustomInterval(parsedCustomValue));
-    dispatch(selectInterval(parsedCustomValue));
+    if (currentLocation) {
+      dispatch(selectInterval(parsedCustomValue));
+    }
     setCustomValue('');
   };
 
@@ -49,6 +51,7 @@ export const AutoRefreshControls = () => {
             variant={selectedInterval === value ? 'primary' : 'outline-primary'}
             size="sm"
             onClick={() => dispatch(selectInterval(value))}
+            disabled={!currentLocation}
           >
             {value} min
           </Button>
@@ -81,6 +84,7 @@ export const AutoRefreshControls = () => {
                 variant={selectedInterval === value ? 'primary' : 'outline-primary'}
                 size="sm"
                 onClick={() => dispatch(selectInterval(value))}
+                disabled={!currentLocation}
               >
                 {value} min
               </Button>

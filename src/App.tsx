@@ -7,6 +7,7 @@ import { LoadingSpinner } from './components/LoadingSpinner';
 import { TopNavBar } from './components/TopNavBar';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { fetchWeatherByCity } from './redux/weatherSlice';
+import { selectInterval } from './redux/autoRefreshSlice';
 import './App.css';
 
 function App() {
@@ -36,6 +37,12 @@ function App() {
     currentLocation?.city,
     currentLocation?.country,
   ]);
+
+  useEffect(() => {
+    if (selectedInterval && !currentLocation) {
+      dispatch(selectInterval(null));
+    }
+  }, [dispatch, selectedInterval, currentLocation]);
 
   return (
     <>
